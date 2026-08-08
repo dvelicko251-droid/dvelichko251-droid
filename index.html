@@ -81,44 +81,28 @@
         width: 38%;
         top: 51%;
         height: 12%;
-    }
-/* Анимация конверта */
+       /* АНИМАЦИЯ ТРЕТЬЕГО ЭКРАНА */
 
-.envelope-glow {
+#page3.active img {
+    animation: envelopePage 1.8s ease-out both;
+}
+
+#page3.active::after {
+    content: "";
     position: absolute;
     left: 50%;
-    top: 48%;
-    width: 42%;
+    top: 46%;
+    width: 55%;
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: rgba(255, 230, 215, 0.35);
-    filter: blur(25px);
+    background: rgba(255, 236, 222, 0.28);
+    filter: blur(35px);
     opacity: 0;
     pointer-events: none;
-}
+    z-index: 1;
 
-.page.active .envelope-glow {
-    animation: envelopeGlow 2.5s ease-in-out forwards;
-}
-
-.letter-animation {
-    position: absolute;
-    left: 50%;
-    top: 47%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 8;
-}
-
-.letter-animation span {
-    font-size: 55px;
-    color: rgba(160, 120, 105, 0.25);
-}
-
-.page.active .letter-animation {
-    animation: letterAppear 1.8s ease-out forwards;
+    animation: softGlow 2.5s ease-in-out 0.3s forwards;
 }
 
 .continue-button {
@@ -144,15 +128,55 @@
 
     opacity: 0;
     pointer-events: none;
+
+    animation: buttonAppear 1s ease 1.7s forwards;
 }
 
-.page.active .continue-button {
-    animation: buttonAppear 1s ease forwards;
-    animation-delay: 1.8s;
-    pointer-events: auto;
+@keyframes envelopePage {
+
+    0% {
+        opacity: 0;
+        transform: scale(1.025);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-@keyframes envelopeGlow {
+@keyframes softGlow {
+
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.8);
+    }
+
+    45% {
+        opacity: .65;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    100% {
+        opacity: .12;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes buttonAppear {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(12px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+    }
+
 
     0% {
         opacity: 0;
