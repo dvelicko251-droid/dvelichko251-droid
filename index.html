@@ -291,37 +291,46 @@
 
     #backButton.visible {
         display: flex;
+       /* Живой таймер */
+#liveCountdown {
+    position: absolute;
+    z-index: 20;
+    left: 10%;
+    right: 10%;
+    top: 34%;
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2%;
+    pointer-events: none;
+}
+
+#liveCountdown .unit {
+    width: 23%;
+    flex: 0 0 23%;
+    text-align: center;
+    color: #a77b52;
+    box-sizing: border-box;
+}
+
+#liveCountdown .number {
+    font-size: clamp(25px, 7vw, 52px);
+    line-height: 1;
+    font-weight: normal;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+#liveCountdown .label {
+    margin-top: 8px;
+    font-family: Arial, sans-serif;
+    font-size: clamp(10px, 2.7vw, 16px);
+    color: #806a68;
+    white-space: nowrap;
+}
     }
 
-    /* Живой таймер */
-    #liveCountdown {
-        position: absolute;
-        z-index: 20;
-        left: 12%;
-        right: 12%;
-        top: 34%;
-        display: none;
-        justify-content: space-between;
-        pointer-events: none;
-    }
-
-    #liveCountdown .unit {
-        width: 22%;
-        text-align: center;
-        color: #a77b52;
-    }
-
-    #liveCountdown .number {
-        font-size: clamp(25px, 7vw, 52px);
-        line-height: 1;
-        font-weight: normal;
-    }
-
-    #liveCountdown .label {
-        margin-top: 8px;
-        font-family: Arial, sans-serif;
-        font-size: clamp(10px, 2.7vw, 16px);
-        color: #806a68;
+   
     }
 
     /* маленький индикатор страниц */
