@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Гендер-пати</title>
+<title>Приглашение</title>
 
 <style>
 * {
@@ -25,20 +25,29 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Контейнер всех страниц */
+/* =========================
+   ОСНОВНОЙ КОНТЕЙНЕР
+   ========================= */
+
 .invitation {
     width: 100%;
     height: 100dvh;
-    overflow-y: auto;
+
+    overflow-y: scroll;
     overflow-x: hidden;
 
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 
     -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior-y: contain;
 }
 
-/* Одна страница */
+/* =========================
+   СТРАНИЦЫ
+   ========================= */
+
 .page {
     position: relative;
 
@@ -46,14 +55,14 @@ body {
     height: 100dvh;
     min-height: 100dvh;
 
+    overflow: hidden;
+
     scroll-snap-align: start;
     scroll-snap-stop: always;
 
-    overflow: hidden;
     flex-shrink: 0;
 }
 
-/* Картинка страницы */
 .page > img {
     display: block;
 
@@ -65,23 +74,54 @@ body {
 
     user-select: none;
     -webkit-user-drag: none;
-    pointer-events: none;
 }
 
 /* =========================
-   ТАЙМЕР — ПОКА ПУСТОЙ
+   КЛИКАБЕЛЬНЫЕ ЗОНЫ
+   ========================= */
+
+.hotspot {
+    position: absolute;
+    z-index: 50;
+
+    display: block;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    text-decoration: none;
+}
+
+/*
+   ПЕРВАЯ СТРАНИЦА
+
+   Прозрачная зона поверх кнопки
+   «Открыть приглашение».
+*/
+#openInvitation {
+    left: 20%;
+    right: 20%;
+    top: 69%;
+    height: 12%;
+}
+
+/* =========================
+   ТАЙМЕР
    ========================= */
 
 #liveCountdown {
     position: absolute;
+    z-index: 20;
 
     left: 8%;
-    right: 8%;
-    top: 36%;
-
     width: 84%;
 
-    display: none;
+    top: 38%;
+
+    display: flex;
 
     justify-content: space-between;
     align-items: flex-start;
@@ -91,43 +131,96 @@ body {
 
 #liveCountdown .unit {
     width: 22%;
+    flex: 0 0 22%;
+
     text-align: center;
+
+    color: #a77b52;
 }
 
 #liveCountdown .number {
-    font-size: clamp(25px, 7vw, 52px);
+    min-width: 1.5em;
+
+    font-size: clamp(27px, 7.5vw, 52px);
     line-height: 1;
+
+    font-weight: normal;
 
     color: #a77b52;
 
     font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+
+    white-space: nowrap;
+
+    text-shadow: 0 1px 2px rgba(80, 50, 30, 0.08);
 }
 
 #liveCountdown .label {
     margin-top: 8px;
 
     font-family: Arial, sans-serif;
+
     font-size: clamp(10px, 2.7vw, 16px);
 
     color: #806a68;
+
+    white-space: nowrap;
 }
 
-/* На очень маленьких телефонах */
-@media (max-width: 360px) {
+/* =========================
+   ОТВЕТ ГОСТЕЙ
+   ========================= */
+
+/*
+   Прозрачная зона поверх кнопки
+   ответа на странице 7.
+*/
+#guestResponse {
+    left: 17%;
+    right: 17%;
+    top: 68%;
+    height: 14%;
+}
+
+/* =========================
+   АДАПТАЦИЯ
+   ========================= */
+
+@media (max-width: 390px) {
 
     #liveCountdown {
         left: 6%;
-        right: 6%;
         width: 88%;
+        top: 38%;
     }
 
     #liveCountdown .number {
-        font-size: 25px;
+        font-size: 27px;
     }
 
     #liveCountdown .label {
         font-size: 10px;
+        margin-top: 7px;
     }
+}
+
+@media (min-width: 700px) {
+
+    #liveCountdown {
+        left: 12%;
+        width: 76%;
+    }
+}
+
+/* =========================
+   УБИРАЕМ СИСТЕМНЫЕ ЭФФЕКТЫ
+   ========================= */
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 </style>
 </head>
@@ -136,26 +229,66 @@ body {
 
 <main class="invitation">
 
-    <!-- СТРАНИЦА 1 -->
+    <!-- =====================
+         СТРАНИЦА 1
+         ===================== -->
+
     <section class="page" id="page1">
-        <img src="page1.jpg.PNG" alt="Гендер-пати — страница 1">
+
+        <img
+            src="page1.jpg.PNG"
+            alt="Приглашение"
+        >
+
+        <a
+            href="#page2"
+            class="hotspot"
+            id="openInvitation"
+            aria-label="Открыть приглашение"
+        ></a>
+
     </section>
 
-    <!-- СТРАНИЦА 2 -->
+
+    <!-- =====================
+         СТРАНИЦА 2
+         ===================== -->
+
     <section class="page" id="page2">
-        <img src="page2.jpg.PNG" alt="Гендер-пати — страница 2">
+
+        <img
+            src="page2.jpg.PNG"
+            alt="Приглашение"
+        >
+
     </section>
 
-    <!-- СТРАНИЦА 3 -->
+
+    <!-- =====================
+         СТРАНИЦА 3
+         ===================== -->
+
     <section class="page" id="page3">
-        <img src="page3.jpg.PNG" alt="Гендер-пати — страница 3">
+
+        <img
+            src="page3.jpg.PNG"
+            alt="Приглашение"
+        >
+
     </section>
 
-    <!-- СТРАНИЦА 4 -->
-    <section class="page" id="page4">
-        <img src="page4.jpg.PNG" alt="До нашей встречи осталось">
 
-        <!-- Таймер подключим следующим шагом -->
+    <!-- =====================
+         СТРАНИЦА 4 — ТАЙМЕР
+         ===================== -->
+
+    <section class="page" id="page4">
+
+        <img
+            src="page4.jpg.PNG"
+            alt="До нашей встречи осталось"
+        >
+
         <div id="liveCountdown">
 
             <div class="unit">
@@ -179,35 +312,205 @@ body {
             </div>
 
         </div>
+
     </section>
 
-    <!-- СТРАНИЦА 5 -->
+
+    <!-- =====================
+         СТРАНИЦА 5
+         ===================== -->
+
     <section class="page" id="page5">
-        <img src="page5.jpg.PNG" alt="Гендер-пати — страница 5">
+
+        <img
+            src="page5.jpg.PNG"
+            alt="Приглашение"
+        >
+
     </section>
 
-    <!-- СТРАНИЦА 6 -->
+
+    <!-- =====================
+         СТРАНИЦА 6
+         ===================== -->
+
     <section class="page" id="page6">
-        <img src="page6.jpg.PNG" alt="Гендер-пати — страница 6">
+
+        <img
+            src="page6.jpg.PNG"
+            alt="Приглашение"
+        >
+
     </section>
 
-    <!-- СТРАНИЦА 7 -->
+
+    <!-- =====================
+         СТРАНИЦА 7 — ОТВЕТ
+         ===================== -->
+
     <section class="page" id="page7">
-        <img src="page7.jpg.PNG" alt="Гендер-пати — страница 7">
+
+        <img
+            src="page7.jpg.PNG"
+            alt="Ответ гостей"
+        >
+
+        <a
+            href="https://wa.me/79884863997?text=Здравствуйте!%20Я%20буду%20на%20гендер-пати%20💗💙"
+            class="hotspot"
+            id="guestResponse"
+            aria-label="Ответить на приглашение"
+        ></a>
+
     </section>
 
-    <!-- СТРАНИЦА 8 -->
+
+    <!-- =====================
+         СТРАНИЦА 8
+         ===================== -->
+
     <section class="page" id="page8">
-        <img src="page8.jpg.PNG" alt="Гендер-пати — страница 8">
+
+        <img
+            src="page8.jpg.PNG"
+            alt="До встречи"
+        >
+
     </section>
 
 </main>
 
+
 <script>
-/* Пока без интерактива.
-   Следующим шагом добавим настоящий таймер
-   и точно выставим его цифры на page4.
-*/
+
+/* ==========================================
+   ТАЙМЕР
+   5 СЕНТЯБРЯ 2026 — 18:00
+   ========================================== */
+
+const eventDate = new Date("2026-09-05T18:00:00+03:00");
+
+function updateCountdown() {
+
+    const now = new Date();
+
+    let difference = eventDate.getTime() - now.getTime();
+
+    if (difference < 0) {
+        difference = 0;
+    }
+
+    const totalSeconds = Math.floor(difference / 1000);
+
+    const days = Math.floor(totalSeconds / 86400);
+
+    const hours = Math.floor(
+        (totalSeconds % 86400) / 3600
+    );
+
+    const minutes = Math.floor(
+        (totalSeconds % 3600) / 60
+    );
+
+    const seconds = totalSeconds % 60;
+
+
+    document.getElementById("days").textContent =
+        String(days);
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+
+/* Запускаем сразу */
+updateCountdown();
+
+/* Обновляем каждую секунду */
+setInterval(updateCountdown, 1000);
+
+
+/* ==========================================
+   ПЛАВНОЕ ПЕРЕЛИСТЫВАНИЕ
+   ========================================== */
+
+const invitation = document.querySelector(".invitation");
+
+let isScrolling = false;
+
+invitation.addEventListener(
+    "wheel",
+    function(event) {
+
+        event.preventDefault();
+
+        if (isScrolling) return;
+
+        isScrolling = true;
+
+        const pages = document.querySelectorAll(".page");
+
+        const currentPage =
+            Math.round(
+                invitation.scrollTop /
+                window.innerHeight
+            );
+
+        let nextPage = currentPage;
+
+        if (event.deltaY > 0) {
+            nextPage++;
+        } else {
+            nextPage--;
+        }
+
+        nextPage = Math.max(
+            0,
+            Math.min(
+                pages.length - 1,
+                nextPage
+            )
+        );
+
+        pages[nextPage].scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        setTimeout(function() {
+            isScrolling = false;
+        }, 700);
+
+    },
+    { passive: false }
+);
+
+
+/* ==========================================
+   КЛИК ПО «ОТКРЫТЬ ПРИГЛАШЕНИЕ»
+   ========================================== */
+
+document
+    .getElementById("openInvitation")
+    .addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        document
+            .getElementById("page2")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+    });
+
 </script>
 
 </body>
