@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Приглашение</title>
 
@@ -18,405 +18,541 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #f8f1eb;
+    background: #fdf7f3;
 }
 
 body {
     font-family: Arial, sans-serif;
 }
 
-/* =========================
-   ОСНОВНОЙ КОНТЕЙНЕР
-   ========================= */
-
-.invitation {
-    width: 100%;
-    height: 100dvh;
-
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-
-    -webkit-overflow-scrolling: touch;
-
-    overscroll-behavior-y: contain;
-}
-
-/* =========================
-   СТРАНИЦЫ
-   ========================= */
-
-.page {
-    position: relative;
-
-    width: 100%;
-    height: 100dvh;
-    min-height: 100dvh;
-
+/* Контейнер всех страниц */
+.slider {
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-
-    flex-shrink: 0;
+    position: relative;
 }
 
-.page > img {
-    display: block;
-
+/* Лента страниц */
+.pages {
+    display: flex;
     width: 100%;
     height: 100%;
-
-    object-fit: cover;
-    object-position: center;
-
-    user-select: none;
-    -webkit-user-drag: none;
+    transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* =========================
-   КЛИКАБЕЛЬНЫЕ ЗОНЫ
-   ========================= */
+/* Одна страница */
+.page {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #fdf7f3;
+}
 
-.hotspot {
-    position: absolute;
-    z-index: 50;
-
+/* Картинка страницы */
+.page > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     display: block;
+}
 
-    background: transparent;
-    border: none;
+/* ------------------------------------------------ */
+/* КНОПКА НА ПЕРВОЙ СТРАНИЦЕ */
+/* ------------------------------------------------ */
 
+.open-button {
+    position: absolute;
+
+    /*
+      Зона кнопки расположена внизу первой картинки.
+      Она прозрачная, сама картинка остаётся без изменений.
+    */
+
+    left: 28%;
+    width: 44%;
+    bottom: 11%;
+    height: 9%;
+
+    z-index: 10;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-
-    text-decoration: none;
 }
 
-/*
-   ПЕРВАЯ СТРАНИЦА
-
-   Прозрачная зона поверх кнопки
-   «Открыть приглашение».
-*/
-#openInvitation {
-    left: 20%;
-    right: 20%;
-    top: 69%;
-    height: 12%;
-}
-
-/* =========================
-   ТАЙМЕР
-   ========================= */
+/* ------------------------------------------------ */
+/* ТАЙМЕР */
+/* ------------------------------------------------ */
 
 #liveCountdown {
     position: absolute;
     z-index: 20;
 
-    left: 8%;
-    width: 84%;
+    /*
+      Общая область четырёх кружков
+    */
+    left: 0;
+    width: 100%;
 
-    top: 38%;
+    /*
+      Положение по вертикали относительно картинки
+    */
+    top: 40.7%;
 
-    display: flex;
-
-    justify-content: space-between;
-    align-items: flex-start;
+    height: 11%;
 
     pointer-events: none;
+
+    display: grid;
+
+    /*
+      Четыре позиции под четыре кружочка
+    */
+    grid-template-columns:
+        15.5%
+        20.5%
+        20.5%
+        20.5%;
+
+    column-gap: 0;
+
+    padding-left: 5%;
 }
 
+/* Каждая цифра */
 #liveCountdown .unit {
-    width: 22%;
-    flex: 0 0 22%;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     text-align: center;
-
-    color: #a77b52;
 }
 
+/* Сама цифра */
 #liveCountdown .number {
-    min-width: 1.5em;
+    font-family: Georgia, "Times New Roman", serif;
 
-    font-size: clamp(27px, 7.5vw, 52px);
+    font-size: clamp(42px, 9vw, 78px);
+
     line-height: 1;
 
     font-weight: normal;
 
-    color: #a77b52;
-
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum";
+    color: #b8894f;
 
     white-space: nowrap;
 
-    text-shadow: 0 1px 2px rgba(80, 50, 30, 0.08);
+    transform: translateY(-2px);
 }
-
-#liveCountdown .label {
-    margin-top: 8px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: clamp(10px, 2.7vw, 16px);
-
-    color: #806a68;
-
-    white-space: nowrap;
-}
-
-/* =========================
-   ОТВЕТ ГОСТЕЙ
-   ========================= */
 
 /*
-   Прозрачная зона поверх кнопки
-   ответа на странице 7.
+  Слова "Дней / Часов / Минут / Секунд"
+  полностью скрываем
 */
-#guestResponse {
-    left: 17%;
-    right: 17%;
-    top: 68%;
-    height: 14%;
+#liveCountdown .label {
+    display: none !important;
 }
 
-/* =========================
-   АДАПТАЦИЯ
-   ========================= */
+/* ------------------------------------------------ */
+/* СТРЕЛКИ НАВИГАЦИИ */
+/* ------------------------------------------------ */
 
-@media (max-width: 390px) {
+.nav-button {
+    position: fixed;
+    z-index: 100;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.82);
+
+    color: #92796e;
+
+    font-size: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 3px 15px rgba(120,80,60,0.12);
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+#prev {
+    left: 14px;
+}
+
+#next {
+    right: 14px;
+}
+
+/* На первой странице стрелка назад не нужна */
+#prev.hidden {
+    display: none;
+}
+
+/* ------------------------------------------------ */
+/* МОБИЛЬНАЯ АДАПТАЦИЯ */
+/* ------------------------------------------------ */
+
+@media (max-width: 600px) {
 
     #liveCountdown {
-        left: 6%;
-        width: 88%;
-        top: 38%;
+        top: 40.7%;
+        height: 10.5%;
+        padding-left: 5%;
     }
 
     #liveCountdown .number {
-        font-size: 27px;
+        font-size: clamp(34px, 8vw, 55px);
     }
 
-    #liveCountdown .label {
-        font-size: 10px;
-        margin-top: 7px;
+    .nav-button {
+        width: 44px;
+        height: 44px;
+        font-size: 25px;
     }
-}
 
-@media (min-width: 700px) {
-
-    #liveCountdown {
-        left: 12%;
-        width: 76%;
+    #prev {
+        left: 10px;
     }
-}
 
-/* =========================
-   УБИРАЕМ СИСТЕМНЫЕ ЭФФЕКТЫ
-   ========================= */
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
+    #next {
+        right: 10px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<main class="invitation">
+<div class="slider">
 
-    <!-- =====================
-         СТРАНИЦА 1
-         ===================== -->
+    <div class="pages" id="pages">
 
-    <section class="page" id="page1">
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 1 -->
+        <!-- =============================== -->
 
-        <img
-            src="page1.jpg.PNG"
-            alt="Приглашение"
-        >
+        <section class="page" id="page1">
 
-        <a
-            href="#page2"
-            class="hotspot"
-            id="openInvitation"
-            aria-label="Открыть приглашение"
-        ></a>
+            <img src="page1.jpg.PNG" alt="Приглашение">
 
-    </section>
-
-
-    <!-- =====================
-         СТРАНИЦА 2
-         ===================== -->
-
-    <section class="page" id="page2">
-
-        <img
-            src="page2.jpg.PNG"
-            alt="Приглашение"
-        >
-
-    </section>
-
-
-    <!-- =====================
-         СТРАНИЦА 3
-         ===================== -->
-
-    <section class="page" id="page3">
-
-        <img
-            src="page3.jpg.PNG"
-            alt="Приглашение"
-        >
-
-    </section>
-
-
-    <!-- =====================
-         СТРАНИЦА 4 — ТАЙМЕР
-         ===================== -->
-
-    <section class="page" id="page4">
-
-        <img
-            src="page4.jpg.PNG"
-            alt="До нашей встречи осталось"
-        >
-
-        <div id="liveCountdown">
-
-            <div class="unit">
-                <div class="number" id="days">--</div>
-                <div class="label">Дней</div>
+            <!-- Прозрачная кликабельная область кнопки -->
+            <div
+                class="open-button"
+                onclick="goToPage(1)"
+                aria-label="Открыть приглашение">
             </div>
 
-            <div class="unit">
-                <div class="number" id="hours">--</div>
-                <div class="label">Часов</div>
+        </section>
+
+
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 2 -->
+        <!-- =============================== -->
+
+        <section class="page" id="page2">
+            <img src="page2.jpg.PNG" alt="Приглашение">
+        </section>
+
+
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 3 -->
+        <!-- =============================== -->
+
+        <section class="page" id="page3">
+            <img src="page3.jpg.PNG" alt="Приглашение">
+        </section>
+
+
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 4 — ТАЙМЕР -->
+        <!-- =============================== -->
+
+        <section class="page" id="page4">
+
+            <img src="page4.jpg.PNG" alt="Обратный отсчёт">
+
+            <div id="liveCountdown">
+
+                <div class="unit">
+                    <div class="number" id="days">00</div>
+                    <div class="label">Дней</div>
+                </div>
+
+                <div class="unit">
+                    <div class="number" id="hours">00</div>
+                    <div class="label">Часов</div>
+                </div>
+
+                <div class="unit">
+                    <div class="number" id="minutes">00</div>
+                    <div class="label">Минут</div>
+                </div>
+
+                <div class="unit">
+                    <div class="number" id="seconds">00</div>
+                    <div class="label">Секунд</div>
+                </div>
+
             </div>
 
-            <div class="unit">
-                <div class="number" id="minutes">--</div>
-                <div class="label">Минут</div>
-            </div>
-
-            <div class="unit">
-                <div class="number" id="seconds">--</div>
-                <div class="label">Секунд</div>
-            </div>
-
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- =====================
-         СТРАНИЦА 5
-         ===================== -->
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 5 -->
+        <!-- =============================== -->
 
-    <section class="page" id="page5">
-
-        <img
-            src="page5.jpg.PNG"
-            alt="Приглашение"
-        >
-
-    </section>
+        <section class="page" id="page5">
+            <img src="page5.jpg.PNG" alt="Приглашение">
+        </section>
 
 
-    <!-- =====================
-         СТРАНИЦА 6
-         ===================== -->
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 6 -->
+        <!-- =============================== -->
 
-    <section class="page" id="page6">
-
-        <img
-            src="page6.jpg.PNG"
-            alt="Приглашение"
-        >
-
-    </section>
+        <section class="page" id="page6">
+            <img src="page6.jpg.PNG" alt="Приглашение">
+        </section>
 
 
-    <!-- =====================
-         СТРАНИЦА 7 — ОТВЕТ
-         ===================== -->
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 7 -->
+        <!-- =============================== -->
 
-    <section class="page" id="page7">
-
-        <img
-            src="page7.jpg.PNG"
-            alt="Ответ гостей"
-        >
-
-        <a
-            href="https://wa.me/79884863997?text=Здравствуйте!%20Я%20буду%20на%20гендер-пати%20💗💙"
-            class="hotspot"
-            id="guestResponse"
-            aria-label="Ответить на приглашение"
-        ></a>
-
-    </section>
+        <section class="page" id="page7">
+            <img src="page7.jpg.PNG" alt="Приглашение">
+        </section>
 
 
-    <!-- =====================
-         СТРАНИЦА 8
-         ===================== -->
+        <!-- =============================== -->
+        <!-- СТРАНИЦА 8 -->
+        <!-- =============================== -->
 
-    <section class="page" id="page8">
+        <section class="page" id="page8">
+            <img src="page8.jpg.PNG" alt="Приглашение">
+        </section>
 
-        <img
-            src="page8.jpg.PNG"
-            alt="До встречи"
-        >
+    </div>
 
-    </section>
 
-</main>
+    <!-- Кнопки перелистывания -->
+
+    <button
+        class="nav-button hidden"
+        id="prev"
+        onclick="previousPage()">
+        ‹
+    </button>
+
+    <button
+        class="nav-button"
+        id="next"
+        onclick="nextPage()">
+        ›
+    </button>
+
+</div>
 
 
 <script>
 
-/* ==========================================
-   ТАЙМЕР
-   5 СЕНТЯБРЯ 2026 — 18:00
-   ========================================== */
+/* ========================================= */
+/* НАСТРОЙКИ */
+/* ========================================= */
 
-const eventDate = new Date("2026-09-05T18:00:00+03:00");
+let currentPage = 0;
+
+const totalPages = 8;
+
+const pages = document.getElementById("pages");
+
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
+
+/* ========================================= */
+/* ПЕРЕЛИСТЫВАНИЕ */
+/* ========================================= */
+
+function showPage(page) {
+
+    if (page < 0) {
+        page = 0;
+    }
+
+    if (page > totalPages - 1) {
+        page = totalPages - 1;
+    }
+
+    currentPage = page;
+
+    pages.style.transform =
+        `translateX(-${currentPage * 100}vw)`;
+
+    updateNavigation();
+}
+
+
+function goToPage(page) {
+    showPage(page);
+}
+
+
+function nextPage() {
+    if (currentPage < totalPages - 1) {
+        showPage(currentPage + 1);
+    }
+}
+
+
+function previousPage() {
+    if (currentPage > 0) {
+        showPage(currentPage - 1);
+    }
+}
+
+
+function updateNavigation() {
+
+    if (currentPage === 0) {
+        prevButton.classList.add("hidden");
+    } else {
+        prevButton.classList.remove("hidden");
+    }
+
+    if (currentPage === totalPages - 1) {
+        nextButton.style.display = "none";
+    } else {
+        nextButton.style.display = "flex";
+    }
+}
+
+
+/* ========================================= */
+/* СВАЙП ПАЛЬЦЕМ */
+/* ========================================= */
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener("touchstart", function(e) {
+
+    touchStartX = e.changedTouches[0].screenX;
+
+}, { passive: true });
+
+
+document.addEventListener("touchend", function(e) {
+
+    touchEndX = e.changedTouches[0].screenX;
+
+    handleSwipe();
+
+}, { passive: true });
+
+
+function handleSwipe() {
+
+    const distance = touchEndX - touchStartX;
+
+    /*
+      Минимальное расстояние свайпа
+    */
+
+    if (Math.abs(distance) < 50) {
+        return;
+    }
+
+    if (distance < 0) {
+        nextPage();
+    } else {
+        previousPage();
+    }
+}
+
+
+/* ========================================= */
+/* ТАЙМЕР */
+/* ========================================= */
+
+const targetDate =
+    new Date("2026-09-05T18:00:00");
+
 
 function updateCountdown() {
 
     const now = new Date();
 
-    let difference = eventDate.getTime() - now.getTime();
+    let difference =
+        targetDate.getTime() - now.getTime();
 
-    if (difference < 0) {
-        difference = 0;
+
+    if (difference <= 0) {
+
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        return;
     }
 
-    const totalSeconds = Math.floor(difference / 1000);
 
-    const days = Math.floor(totalSeconds / 86400);
+    const days =
+        Math.floor(
+            difference / (1000 * 60 * 60 * 24)
+        );
 
-    const hours = Math.floor(
-        (totalSeconds % 86400) / 3600
-    );
+    difference -=
+        days * (1000 * 60 * 60 * 24);
 
-    const minutes = Math.floor(
-        (totalSeconds % 3600) / 60
-    );
 
-    const seconds = totalSeconds % 60;
+    const hours =
+        Math.floor(
+            difference / (1000 * 60 * 60)
+        );
+
+    difference -=
+        hours * (1000 * 60 * 60);
+
+
+    const minutes =
+        Math.floor(
+            difference / (1000 * 60)
+        );
+
+    difference -=
+        minutes * (1000 * 60);
+
+
+    const seconds =
+        Math.floor(
+            difference / 1000
+        );
 
 
     document.getElementById("days").textContent =
-        String(days);
+        String(days).padStart(2, "0");
 
     document.getElementById("hours").textContent =
         String(hours).padStart(2, "0");
@@ -429,87 +565,17 @@ function updateCountdown() {
 }
 
 
-/* Запускаем сразу */
+/* Запускаем таймер */
 updateCountdown();
 
-/* Обновляем каждую секунду */
 setInterval(updateCountdown, 1000);
 
 
-/* ==========================================
-   ПЛАВНОЕ ПЕРЕЛИСТЫВАНИЕ
-   ========================================== */
+/* ========================================= */
+/* СТАРТ */
+/* ========================================= */
 
-const invitation = document.querySelector(".invitation");
-
-let isScrolling = false;
-
-invitation.addEventListener(
-    "wheel",
-    function(event) {
-
-        event.preventDefault();
-
-        if (isScrolling) return;
-
-        isScrolling = true;
-
-        const pages = document.querySelectorAll(".page");
-
-        const currentPage =
-            Math.round(
-                invitation.scrollTop /
-                window.innerHeight
-            );
-
-        let nextPage = currentPage;
-
-        if (event.deltaY > 0) {
-            nextPage++;
-        } else {
-            nextPage--;
-        }
-
-        nextPage = Math.max(
-            0,
-            Math.min(
-                pages.length - 1,
-                nextPage
-            )
-        );
-
-        pages[nextPage].scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-        setTimeout(function() {
-            isScrolling = false;
-        }, 700);
-
-    },
-    { passive: false }
-);
-
-
-/* ==========================================
-   КЛИК ПО «ОТКРЫТЬ ПРИГЛАШЕНИЕ»
-   ========================================== */
-
-document
-    .getElementById("openInvitation")
-    .addEventListener("click", function(event) {
-
-        event.preventDefault();
-
-        document
-            .getElementById("page2")
-            .scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-    });
+updateNavigation();
 
 </script>
 
