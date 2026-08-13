@@ -142,29 +142,36 @@ body {
    Четыре цифры располагаются
    поверх четырёх кружочков.
 */
-
 #liveCountdown {
     position: absolute;
-
-    left: 6%;
-    right: 6%;
-
-    top: 35.8%;
-
-    height: 10%;
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
+    top: 36.5%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
-
-    justify-items: center;
-
-    z-index: 50;
-
-    pointer-events: none;
+    z-index: 10;
 }
+
+#liveCountdown .unit {
+    width: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#liveCountdown .number {
+    font-size: clamp(38px, 10vw, 70px);
+    line-height: 1;
+    font-weight: normal;
+    color: #a8784b;
+    text-align: center;
+}
+
+#liveCountdown .label {
+    display: none;
+}
+
 
 .count {
     width: 100%;
